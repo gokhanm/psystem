@@ -1,8 +1,10 @@
 import unittest
 
 from psystem import network
+from psystem.errors import *
 
-__author__ = "Gokhan MANKARA <gokhan@mankara.org>"
+__author__ = "Gokhan MANKARA"
+__email__ = "gokhan@mankara.org"
 
 
 class NetworkTestCase(unittest.TestCase):
@@ -46,6 +48,24 @@ class NetworkTestCase(unittest.TestCase):
 
         self.assertRaises(ValueError, get.ip, 'ethh1')
 
+    def test_set_ip(self):
+        st = network.Set()
+        get = network.Get()
+
+        set_ip = st.ip('eth0', '10.41.0.164')
+        current_ip = get.ip('eth0')[0]['addr']
+
+        self.assertEqual(current_ip, '10.41.0.164')
+
+    def test_false_interface_name_set_ip(self):
+        st = network.Set()
+
+        self.assertRaises(WrongInterfaceName, st.ip, 'eth', '10.41.0.164')
+
+    def test_not_valid_ipv4_address_set(self):
+        st = network.Set()
+
+        self.assertRaises(NotValidIPv4Address, st.ip, 'eth0', '10.41.0')
 
 if __name__ == '__main__':
     unittest.main()

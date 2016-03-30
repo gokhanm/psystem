@@ -1,8 +1,30 @@
 """ Common Network Settings """
 import netifaces
+import socket
+import struct
+import ctypes
+import fcntl
+import socket
+import validators
+
+from psystem.errors import *
 
 
-__author__ = "Gokhan MANKARA <gokhan@mankara.org>"
+__author__ = "Gokhan MANKARA"
+__email__ = "gokhan@mankara.org"
+
+
+# From linux/sockios.h
+SIOCSIFNETMASK = 0x891C
+SIOCSIFADDR = 0x8916
+SIOCGIFFLAGS = 0x8913
+
+# From linux/if.h
+IFF_UP       = 0x1
+
+# From linux/socket.h
+AF_UNIX      = 1
+AF_INET      = 2
 
 
 class Get:
@@ -50,10 +72,50 @@ class Get:
         """
         return netifaces.gateways()
 
+    def is_up(self, interface_name):
+        ''' Return True if the interface is up, False otherwise. '''
+
+        # Get existing device flags
+        ifreq = struct.pack('16sh', interface_name, 0)
+        flags = struct.unpack('16sh', fcntl.ioctl(sockfd, SIOCGIFFLAGS, ifreq))[1]
+
+        # Set new flags
+        if flags & IFF_UP:
+            return True
+        else:
+            return False
+
 
 class Set:
+    
     def __init__(self):
-        pass
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    def ip(self, interface_name, newip):
+
+        interface_check = Get().interfaces()
+
+        valid_ipv4 = validators.ipv4(newip)
+
+        if not interface_name in interface_check:
+            raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
+
+        elif not valid_ipv4 is True:
+            raise NotValidIPv4Address("Not Valid IPv4 Address %s" % newip)
+
+        else:
+            ifname = interface_name.encode(encoding='UTF-8')
+
+            ipbytes = socket.inet_aton(newip)
+            ifreq = struct.pack('16sH2s4s8s', ifname, AF_INET, b'\x00'*2, ipbytes, b'\x00'*8)
+            fcntl.ioctl(self.sock, SIOCSIFADDR, ifreq)
+
+    def netmask(self, interface_name, netmask):
+        ifname = interface_name.encode(encoding='UTF-8')
+
+        netmask = ctypes.c_uint32(~((2 ** (32 - netmask)) - 1)).value
+        nmbytes = socket.htonl(netmask)
+        ifreq = struct.pack('16sH2sI8s', ifname, AF_INET, b'\x00'*2, nmbytes, b'\x00'*8) 
+        fcntl.ioctl(self.sock, SIOCSIFNETMASK, ifreq)
 
 

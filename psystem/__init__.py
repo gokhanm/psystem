@@ -1,2 +1,3 @@
-__author__ = "Gokhan MANKARA <gokhan@mankara.org>"
+__author__ = "Gokhan MANKARA"
+__email__ = "gokhan@mankara.org"
 __version__ = 0.1
