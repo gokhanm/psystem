@@ -6,6 +6,8 @@ from psystem.errors import *
 __author__ = "Gokhan MANKARA"
 __email__ = "gokhan@mankara.org"
 
+warnings.simplefilter("ignore", ResourceWarning)
+
 
 class NetworkTestCase(unittest.TestCase):
 
@@ -42,6 +44,13 @@ class NetworkTestCase(unittest.TestCase):
 
         all_gw = get.all_gateways()
         self.assertIsInstance(all_gw, dict)
+
+    def test_is_up(self):
+
+        get = network.Get()
+        result = get.is_up('eth0')
+
+        self.assertIsInstance(result, bool)
 
     def test_wrong_typo_interface_name_exception(self):
         get = network.Get()
