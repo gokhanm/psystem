@@ -37,25 +37,34 @@ class Get:
         """
         return netifaces.interfaces()
 
-    def ip(self, interface):
+    def ip(self, interface_name):
         """
             interface: str, Interface Name
             return: Interface Ip Information in List.
                     [{'broadcast': '10.100.0.255', 'addr': '10.100.0.164', 'netmask': '255.255.255.0'}]
         """
+        interface_check = self.interfaces()
+
+        if not interface_name in interface_check:
+            raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
         
-        addrs = netifaces.ifaddresses(interface)
+        addrs = netifaces.ifaddresses(interface_name)
 
         return addrs[netifaces.AF_INET]
 
-    def mac(self, interface):
+    def mac(self, interface_name):
         """
             interface: str , Interface Name
             return: Interface Mac Addresse in List
                     [{'addr': '00:12:34:56:78:9a'}]
 
         """
-        addrs = netifaces.ifaddresses(interface)
+        interface_check = self.interfaces()
+
+        if not interface_name in interface_check:
+            raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
+
+        addrs = netifaces.ifaddresses(interface_name)
 
         return addrs[netifaces.AF_LINK]
 
@@ -63,8 +72,14 @@ class Get:
         """
             return: tuple, Default Interface Gateway
         """
+
         gws = netifaces.gateways()
-        return gws['default'][netifaces.AF_INET]
+
+        try:
+            return gws['default'][netifaces.AF_INET]
+        except KeyError:
+            raise Ipv6GateWayError("Function Not Support Ipv6. Please Use ipv6_default_gateway")
+            
 
     def all_gateways(self):
         """
@@ -74,6 +89,11 @@ class Get:
 
     def is_up(self, interface_name):
         ''' Return True if the interface is up, False otherwise. '''
+
+        interface_check = self.interfaces()
+
+        if not interface_name in interface_check:
+            raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
         
         ifname = interface_name.encode(encoding='UTF-8')
 
@@ -86,6 +106,24 @@ class Get:
             return True
         else:
             return False
+
+    def netmask(self, interface_name):
+        """ 
+            interface_name = str, Interface Name
+            return: str netmask address
+
+        """
+
+        interface_check = self.interfaces()
+
+        if not interface_name in interface_check:
+            raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
+
+        ip_list = self.ip(interface_name)
+
+        netmask = ip_list[0]['netmask']
+
+        return netmask
 
 
 class Set:
@@ -121,6 +159,14 @@ class Set:
             fcntl.ioctl(self.sock, SIOCSIFADDR, ifreq)
 
     def netmask(self, interface_name, netmask):
+        """
+            Checking interface first, if interface name found in Get().interfaces()
+            validating Ipv4. After that applied ip address to interace
+
+            interface_name = Applied Interface
+            netmask = New netmask ip address
+        """
+
         interface_check = Get().interfaces()
 
         valid_ipv4 = validators.ipv4(newip)

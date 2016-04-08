@@ -12,3 +12,6 @@ class WrongInterfaceName(Exception):
 
 class NotValidIPv4Address(Exception):
     pass
+
+class Ipv6GateWayError(Exception):
+    pass

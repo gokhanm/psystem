@@ -1,4 +1,5 @@
 import unittest
+import warnings
 
 from psystem import network
 from psystem.errors import *
@@ -55,7 +56,7 @@ class NetworkTestCase(unittest.TestCase):
     def test_wrong_typo_interface_name_exception(self):
         get = network.Get()
 
-        self.assertRaises(ValueError, get.ip, 'ethh1')
+        self.assertRaises(WrongInterfaceName, get.ip, 'ethh1')
 
     def test_set_ip(self):
         st = network.Set()
@@ -75,6 +76,41 @@ class NetworkTestCase(unittest.TestCase):
         st = network.Set()
 
         self.assertRaises(NotValidIPv4Address, st.ip, 'eth0', '10.41.0')
+
+    def test_get_netmask(self):
+
+        gt = network.Get()
+
+        ip = gt.netmask('eth0')
+        self.assertIsInstance(ip, str)
+
+    def test_get_no_valid_netmask(self):
+
+        gt = network.Get()
+        self.assertRaises(WrongInterfaceName, gt.netmask, 'eth')
+
+    def test_set_netmask(self):
+
+        st = network.Set()
+        gt = netmork.Get()
+
+        set_netmask = st.netmask('eth0', '255.255.255.255')
+
+        current_netmask = gt.netmask('eth0')
+
+        self.assertEqual(current_netmask, '255.255.255.255')
+
+    def test_set_netmask_no_valid_interface_name(self):
+        st = network.Set()
+
+        self.assertRaises(WrongInterfaceName, st.netmask, 'ethh', '255.255.255.255')
+
+    def test_set_netmask_no_valid_ip_address(self):
+
+        st = network.Set()
+
+        self.assertRaises(NotValidIPv4Address, st.netmask, 'eth0', '255.255.0')
+
 
 if __name__ == '__main__':
     unittest.main()
