@@ -185,4 +185,3 @@ class Set:
             ifreq = struct.pack('16sH2sI8s', ifname, AF_INET, b'\x00'*2, nmbytes, b'\x00'*8) 
             fcntl.ioctl(self.sock, SIOCSIFNETMASK, ifreq)
 
-
