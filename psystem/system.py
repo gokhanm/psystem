@@ -65,15 +65,19 @@ class Get:
         return mem
 
 
-
 class Set:
 
     def __init__(self):
         self.get = Get()
         self.hostname_file = '/etc/hostname'
-        self.hosts = '/etc/hosts'
 
     def __set_hostname(self, txt_file, new_hostname):
+        """
+            Running in hostname function. Find old hostname in /etc/hostname
+            and replace with new hostname
+            if hostname file is empty, new_hostname writing in file.
+            if hostname file is not empty, using replace function for new_hostname and old_hostname
+        """
         
         old_hostname = self.get.hostname
 
@@ -93,14 +97,10 @@ class Set:
         f.close()
 
     def hostname(self, new_hostname):
+        """ Change system hostname """
 
         self.__set_hostname(self.hostname_file, new_hostname)
-        self.__set_hostname(self.hosts, new_hostname)
 
         os.system('/bin/hostname %s' % new_hostname)
         syslog.syslog
 
-
-
-if __name__ == '__main__':
-    Set().hostname('dene.dene')
