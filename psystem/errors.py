@@ -15,3 +15,6 @@ class NotValidIPv4Address(Exception):
 
 class Ipv6GateWayError(Exception):
     pass
+
+class EmailUnableRelay(Exception):
+    pass

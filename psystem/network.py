@@ -31,19 +31,21 @@ class Get:
     def __init__(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    @property
     def interfaces(self):
         """
-            return: Network Interfaces List
+            Network Interfaces
+            Return List
         """
         return netifaces.interfaces()
 
     def ip(self, interface_name):
         """
             interface: str, Interface Name
-            return: Interface Ip Information in List.
+            return: List
                     [{'broadcast': '10.100.0.255', 'addr': '10.100.0.164', 'netmask': '255.255.255.0'}]
         """
-        interface_check = self.interfaces()
+        interface_check = self.interfaces
 
         if not interface_name in interface_check:
             raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
@@ -55,11 +57,11 @@ class Get:
     def mac(self, interface_name):
         """
             interface: str , Interface Name
-            return: Interface Mac Addresse in List
+            return: List
                     [{'addr': '00:12:34:56:78:9a'}]
 
         """
-        interface_check = self.interfaces()
+        interface_check = self.interfaces
 
         if not interface_name in interface_check:
             raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
@@ -68,9 +70,11 @@ class Get:
 
         return addrs[netifaces.AF_LINK]
 
+    @property
     def default_gateway(self):
         """
-            return: tuple, Default Interface Gateway
+            Default Interface Gateway
+            Return: tuple
         """
 
         gws = netifaces.gateways()
@@ -80,17 +84,18 @@ class Get:
         except KeyError:
             raise Ipv6GateWayError("Function Not Support Ipv6. Please Use ipv6_default_gateway")
             
-
+    @property
     def all_gateways(self):
         """
-            return: dict, List of gateways on machine.
+            List of gateways on machine.
+            Return: dict
         """
         return netifaces.gateways()
 
     def is_up(self, interface_name):
         ''' Return True if the interface is up, False otherwise. '''
 
-        interface_check = self.interfaces()
+        interface_check = self.interfaces
 
         if not interface_name in interface_check:
             raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
@@ -110,11 +115,11 @@ class Get:
     def netmask(self, interface_name):
         """ 
             interface_name = str, Interface Name
-            return: str netmask address
+            Return: str
 
         """
 
-        interface_check = self.interfaces()
+        interface_check = self.interfaces
 
         if not interface_name in interface_check:
             raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
@@ -141,7 +146,7 @@ class Set:
 
         """
 
-        interface_check = Get().interfaces()
+        interface_check = Get().interfaces
 
         valid_ipv4 = validators.ipv4(newip)
 
@@ -167,7 +172,7 @@ class Set:
             netmask = New netmask ip address
         """
 
-        interface_check = Get().interfaces()
+        interface_check = Get().interfaces
 
         valid_ipv4 = validators.ipv4(newip)
 

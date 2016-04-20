@@ -14,7 +14,7 @@ class NetworkTestCase(unittest.TestCase):
 
     def test_get_interfaces(self):
         get = network.Get()
-        interfaces = get.interfaces()
+        interfaces = get.interfaces
         self.assertIsInstance(interfaces, list)
         return interfaces
 
@@ -37,13 +37,13 @@ class NetworkTestCase(unittest.TestCase):
 
     def test_get_default_gateway(self):
         get = network.Get()
-        default_gw = get.default_gateway()
+        default_gw = get.default_gateway
         self.assertIsInstance(default_gw, tuple)
 
     def test_all_getaways(self):
         get = network.Get()
 
-        all_gw = get.all_gateways()
+        all_gw = get.all_gateways
         self.assertIsInstance(all_gw, dict)
 
     def test_is_up(self):

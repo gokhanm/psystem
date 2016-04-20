@@ -37,15 +37,17 @@ class Get:
     @property
     def kernel_version(self):
 
-        """ Return system current kernel version"""
+        """ Return String, System Current Kernel Version"""
         
         return platform.release()
     
     @property
     def memory_usage(self):
         """ 
-            Return system virtual memory and swap usage 
+            System virtual memory and swap usage 
             Converting byte to mb and rounded result
+            
+            Return dict
         
         """
         mem = psutil.virtual_memory()
@@ -80,8 +82,10 @@ class Get:
 
     def cpu_percent_usage(self, percpu=False):
         """ 
-            Return system cpu usage
-            if percpu is True, return per cpu usage
+            System cpu usage
+
+            if percpu is True, return per cpu usage in list
+            if percpu is False, return cpu usage float
         """
         
         if percpu:
@@ -93,6 +97,10 @@ class Get:
 
     @property
     def cpu_info(self):
+        """ CPU Model Information
+
+            Return string
+        """
 
         cpu_info =  platform.processor()
 
@@ -103,7 +111,9 @@ class Get:
 
     def partition_usage(self, partition):
         """
-            Return system disk partitions usage
+            System disk partition usage
+
+            Return psutil class
         """
         usage = psutil.disk_usage(str(partition))
 
@@ -112,7 +122,9 @@ class Get:
     @property
     def disk_partitions(self):
         """ 
-            Return system disk partitions
+            System disk partitions
+
+            Return list
         """
 
         partitions = psutil.disk_partitions()
@@ -123,8 +135,10 @@ class Get:
     def disk_usage(self):
 
         """
-            Return per system partition disk usage on system
+            Per system partition disk usage on system
             Converting byte to human readable format
+            
+            Return dict
         """
         
         disk_info = {}
