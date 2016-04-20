@@ -1,9 +1,6 @@
 # PSYSTEM
 
-Pysystem, you can get system and network informations on linux. You can change network, hostname etc. settings.
-
-Pysystem'im amacı ( aims ) python ile linux işletim sistemi üzerinde tek bir modül ile
-işlem yapmayı sağlamak.
+Psystem is for linux platform developers or sysadmins.
 
 # SETUP
 
