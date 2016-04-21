@@ -202,9 +202,9 @@ class Get:
     def current_time(self):
 
         now = datetime.datetime.now()
-        time_stamp = datetime.datetime.strftime(now, '%Y %m %d %H:%M:%S')
+        c_t = datetime.datetime.strftime(now, '%Y %m %d %H:%M:%S')
 
-        return time_stamp
+        return c_t
     
 
 class Set:
