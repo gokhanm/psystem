@@ -1,3 +1,4 @@
+import datetime
 import socket
 import struct
 import time
@@ -195,7 +196,15 @@ class Get:
 
         t -= ref_time
 
-        return time.ctime(t).replace("  ", " ")
+        return time.strftime('%Y %m %d %H:%M:%S', time.gmtime(t))
+
+    @property
+    def current_time(self):
+
+        now = datetime.datetime.now()
+        time_stamp = datetime.datetime.strftime(now, '%Y %m %d %H:%M:%S')
+
+        return time_stamp
     
 
 class Set:
