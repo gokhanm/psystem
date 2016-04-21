@@ -171,15 +171,27 @@ class Get:
 
     @property
     def ntp_host(self):
+        """
+            Return: NTP server default host name
+        """
         return self.host
 
     @ntp_host.setter
     def ntp_host(self, new_host):
+        """
+            You can change self.host ntp server host
+            Return: New NTP Server Host Name
+        """
         self.host = new_host
         return self.host
 
     @property
     def ntp_current_time(self):
+        """
+            Connected self.host ntp server
+            Return: YYYY MM DD HH:MM:SS Time Format
+        """
+
         port = 123
         buf = 1024
         address = (self.host, port)
@@ -200,11 +212,30 @@ class Get:
 
     @property
     def current_time(self):
+        """
+            System Current Time
+            Return: YYYY MM DD HH:MM:SS Time Format
+        """
 
         now = datetime.datetime.now()
         c_t = datetime.datetime.strftime(now, '%Y %m %d %H:%M:%S')
 
         return c_t
+
+    @property
+    def uptime(self):
+        """
+            System Uptime 
+            Return: str 'HH:MM:SS' 
+        """
+
+        with open('/proc/uptime', 'r') as f:
+            up_s = float(f.readline().split()[0].split('.')[0])
+            up_str = str(datetime.timedelta(seconds=up_s))
+
+        f.close()
+
+        return up_str
     
 
 class Set:
