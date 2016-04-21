@@ -74,6 +74,14 @@ class SystemTestCase(unittest.TestCase):
 
         self.assertIsInstance(cpu_percent_usage, list)
 
+    def test_ntp_current_time(self):
+
+        gt = system.Get()
+
+        current_time = gt.ntp_current_time
+
+        self.assertIsInstance(current_time, str)
+
 
 
 if __name__ == '__main__':

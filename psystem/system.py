@@ -1,4 +1,7 @@
 import socket
+import struct
+import time
+import sys
 import syslog
 import os
 import platform
@@ -10,6 +13,8 @@ __email__ = "gokhan@mankara.org"
 
 
 class Get:
+    def __init__(self):
+        self.host = "pool.ntp.org"
 
     def hr(self, byt):
         """
@@ -163,6 +168,35 @@ class Get:
 
         return disk_info
 
+    @property
+    def ntp_host(self):
+        return self.host
+
+    @ntp_host.setter
+    def ntp_host(self, new_host):
+        self.host = new_host
+        return self.host
+
+    @property
+    def ntp_current_time(self):
+        port = 123
+        buf = 1024
+        address = (self.host, port)
+        msg = bytes('\x1b' + 47 * '\0', 'UTF-8')
+
+        # reference time
+        ref_time = 2208988800 # 1970-01-01 00:00:00
+
+        client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        client.sendto(msg, address)
+        msg, address = client.recvfrom(buf)
+
+        t = struct.unpack("!12I", msg)[10]
+
+        t -= ref_time
+
+        return time.ctime(t).replace("  ", " ")
+    
 
 class Set:
 

@@ -46,6 +46,13 @@ not testing 2.7 and above
         >>> get.disk_usage
         {'/': {'percent': 31.0, 'total': '105.41 GB', 'used': '32.67 GB', 'free': '67.36 GB'}}
 
+        >>> get.ntp_current_time
+        'Thu Apr 21 10:34:43 2016'
+
+        >>> get.ntp_host = "us.pool.ntp.org"
+        >>> get.ntp_current_time
+        'Thu Apr 21 10:35:10 2016'
+
 ```
 
 ## System Set Usage
