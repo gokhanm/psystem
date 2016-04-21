@@ -82,6 +82,19 @@ class SystemTestCase(unittest.TestCase):
 
         self.assertIsInstance(current_time, str)
 
+    def test_current_time(self):
+
+        gt = system.Get()
+        t = gt.current_time
+
+        self.assertIsInstance(t, str)
+
+    def test_uptime(self):
+
+        gt = system.Get()
+        uptime = gt.uptime
+
+        self.assertIsInstance(uptime, str)
 
 
 if __name__ == '__main__':
