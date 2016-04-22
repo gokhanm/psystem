@@ -111,6 +111,18 @@ not testing 2.7 and above
         >>> set.netmask('eth0', '255.255.255.0'
 ```
 
+## Sending Mail
+```python
+        >>> from psystem import mail
+        >>> m = mail.Email('mail.domain.com', username=username, password=password, port=587)
+        >>> m.send('destination@domain.com', 'from@domain.com', 'subject', 'message')
+
+        # Multi destinations
+        >>> destinations = "dest1@domain.com, dest2@domain.com"
+        >>> m.send(destinations, 'from@domain.com', 'subject', 'message')
+        
+```
+
 ## TODO
 
 System
