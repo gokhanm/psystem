@@ -117,8 +117,6 @@ System
 
 Network
 
-- Send Email
-
 ## Requirements
 
 Please see the [requirements text file](requirements.txt)
