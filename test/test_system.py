@@ -96,6 +96,13 @@ class SystemTestCase(unittest.TestCase):
 
         self.assertIsInstance(uptime, str)
 
+    def test_pid(self):
+        gt = system.Get()
+
+        pid = gt.pid('crypto')
+
+        self.assertIsInstance(pid, int)
+
 
 if __name__ == '__main__':
     unittest.main()

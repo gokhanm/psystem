@@ -236,6 +236,26 @@ class Get:
         f.close()
 
         return up_str
+
+    def pid(self, process_name):
+        """
+            process_name: System Process Name
+            return: Process name's pid, integer
+        """
+
+        for proc in psutil.process_iter():
+
+            try:
+                pinfo = proc.as_dict(attrs=['pid', 'name'])
+
+                p_name = pinfo['name']
+                p_pid = pinfo['pid']
+
+                if process_name == p_name:
+                    return p_pid
+
+            except psutil.NoSuchProcess:
+                pass
     
 
 class Set:
