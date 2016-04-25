@@ -174,13 +174,13 @@ class Set:
 
         interface_check = Get().interfaces
 
-        valid_ipv4 = validators.ipv4(newip)
+        valid_ipv4 = validators.ipv4(netmask)
 
         if not interface_name in interface_check:
             raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
 
         elif not valid_ipv4 is True:
-            raise NotValidIPv4Address("Not Valid IPv4 Address %s" % newip)
+            raise NotValidIPv4Address("Not Valid IPv4 Address %s" % netmask)
 
         else:
             ifname = interface_name.encode(encoding='UTF-8')

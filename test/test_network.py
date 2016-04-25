@@ -92,7 +92,7 @@ class NetworkTestCase(unittest.TestCase):
     def test_set_netmask(self):
 
         st = network.Set()
-        gt = netmork.Get()
+        gt = network.Get()
 
         set_netmask = st.netmask('eth0', '255.255.255.255')
 
