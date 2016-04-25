@@ -68,11 +68,11 @@ class SystemTestCase(unittest.TestCase):
 
         cpu_usage = gt.cpu_percent_usage()
 
-        self.assertIsInstance(cput_usage, float)
+        self.assertIsInstance(cpu_usage, float)
 
         cpu_per_usage = gt.cpu_percent_usage(percpu=True)
 
-        self.assertIsInstance(cpu_percent_usage, list)
+        self.assertIsInstance(cpu_per_usage, list)
 
     def test_ntp_current_time(self):
 
