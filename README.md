@@ -53,6 +53,9 @@ not testing 2.7 and above
         >>> get.ntp_current_time
         'Thu Apr 21 10:35:10 2016'
 
+         >>> get.pid('crypto')
+         33
+
 ```
 
 ## System Set Usage
