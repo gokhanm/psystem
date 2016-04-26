@@ -121,6 +121,16 @@ not testing 2.7 and above
         {'/boot': {'percent': 26.5, 'total': '496.67 MB', 'free': '365.29 MB', 'used': '131.38 MB'}, 
          '/': {'percent': 7.2, 'total': '17.46 GB', 'free': '16.21 GB', 'used': '1.25 GB'}}
 
+        >>> get.network(all_interface=True)
+        {'lo': {'errorout': 0, 'packets_sent': '0', 'dropout': 0, 'dropin': 0, 'errin': 0, 'bytes_send': '0',
+                'bytes_recv': '0', 'packets_recv': '0'},
+         'eth0': {'errorout': 0, 'packets_sent': '6.2 KB', 'dropout': 0, 'dropin': 0, 'errin': 0, 'bytes_send': '683.88 KB',
+                  'bytes_recv': '5.46 MB', 'packets_recv': '30.55 KB'}}
+        
+        >>> get.network()
+        {'errorout': 0, 'packets_sent': '6.22 KB', 'dropin': 0, 'errin': 0, 'dropout': 0, 'bytes_sent': '686.43 KB',
+         'bytes_recv': '5.47 MB', 'packets_recv': '30.63 KB'}
+
 
 ```
 
