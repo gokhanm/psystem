@@ -94,16 +94,16 @@ class NetworkTestCase(unittest.TestCase):
         st = network.Set()
         gt = network.Get()
 
-        set_netmask = st.netmask('eth0', '255.255.255.255')
+        set_netmask = st.netmask('eth0', '255.255.255.0')
 
         current_netmask = gt.netmask('eth0')
 
-        self.assertEqual(current_netmask, '255.255.255.255')
+        self.assertEqual(current_netmask, '255.255.255.0')
 
     def test_set_netmask_no_valid_interface_name(self):
         st = network.Set()
 
-        self.assertRaises(WrongInterfaceName, st.netmask, 'ethh', '255.255.255.255')
+        self.assertRaises(WrongInterfaceName, st.netmask, 'ethh', '255.255.255.0')
 
     def test_set_netmask_no_valid_ip_address(self):
 

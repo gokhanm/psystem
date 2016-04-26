@@ -82,7 +82,7 @@ class Get:
         try:
             return gws['default'][netifaces.AF_INET]
         except KeyError:
-            raise Ipv6GateWayError("Function Not Support Ipv6. Please Use ipv6_default_gateway")
+            return gws['default'][netifaces.AF_INET6]
             
     @property
     def all_gateways(self):
@@ -163,6 +163,21 @@ class Set:
             ifreq = struct.pack('16sH2s4s8s', ifname, AF_INET, b'\x00'*2, ipbytes, b'\x00'*8)
             fcntl.ioctl(self.sock, SIOCSIFADDR, ifreq)
 
+    def get_net_size(self, netmask):
+        """ 
+            Calculate network prefix len
+
+            netmask: iterator like ['255', '255', '255', '0']
+            return: int
+        """
+
+        binary_str = ""
+        
+        for octet in netmask:
+            binary_str += bin(int(octet))[2:].zfill(8)
+
+        return len(binary_str.rstrip('0'))
+
     def netmask(self, interface_name, netmask):
         """
             Checking interface first, if interface name found in Get().interfaces()
@@ -183,9 +198,12 @@ class Set:
             raise NotValidIPv4Address("Not Valid IPv4 Address %s" % netmask)
 
         else:
+
+            prefix_len = self.get_net_size(netmask.split('.'))
+
             ifname = interface_name.encode(encoding='UTF-8')
 
-            netmask = ctypes.c_uint32(~((2 ** (32 - netmask)) - 1)).value
+            netmask = ctypes.c_uint32(~((2 ** (32 - prefix_len)) - 1)).value
             nmbytes = socket.htonl(netmask)
             ifreq = struct.pack('16sH2sI8s', ifname, AF_INET, b'\x00'*2, nmbytes, b'\x00'*8) 
             fcntl.ioctl(self.sock, SIOCSIFNETMASK, ifreq)
