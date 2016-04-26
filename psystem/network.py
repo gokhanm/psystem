@@ -138,6 +138,8 @@ class Set:
 
     def ip(self, interface_name, newip):
         """
+            This function automatically will change netmask address.
+
             Checking interface first, if interface name found in Get().interfaces()
             validating Ipv4. After that applied ip address to interface
 
