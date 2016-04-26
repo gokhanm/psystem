@@ -53,6 +53,19 @@ class TestStats(unittest.TestCase):
 
         self.assertIsInstance(cpu_per_usage, list)        
 
+    def test_network_statistics(self):
+
+        gt = stats.Get()
+
+        n_stats = gt.network()
+
+        self.assertIsInstance(n_stats, dict)
+
+        all_n_stats = gt.network(all_interface=True)
+
+        self.assertIsInstance(all_n_stats, dict)
+
+
 
 if __name__ == '__main__':
     unittest.main()
