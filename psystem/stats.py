@@ -130,3 +130,45 @@ class Get:
 
         return disk_info
 
+    def network(self, all_interface=False):
+        """
+            all_interface: if true, shows all interface network statistics
+            Return: dict
+        """
+
+        if all_interface:
+            stats = psutil.net_io_counters(pernic=True)
+        else:
+            stats = psutil.net_io_counters()
+
+        if all_interface:
+            n = {}
+
+            for k, v in stats.items():
+
+                n[k] = {
+                            "bytes_send": self.hr(v.bytes_sent),
+                            "bytes_recv": self.hr(v.bytes_recv),
+                            "packets_sent": self.hr(v.packets_sent),
+                            "packets_recv": self.hr(v.packets_recv),
+                            "errin": v.errin,
+                            "errorout": v.errout,
+                            "dropin": v.dropin,
+                            "dropout": v.dropout
+                        }
+
+        else:
+
+            n = {
+                    "bytes_sent": self.hr(stats.bytes_sent),
+                    "bytes_recv": self.hr(stats.bytes_recv),
+                    "packets_sent": self.hr(stats.packets_sent),
+                    "packets_recv": self.hr(stats.packets_recv),
+                    "errin": stats.errin,
+                    "errorout": stats.errout,
+                    "dropin": stats.dropin,
+                    "dropout": stats.dropout
+                }
+
+        return n
+
