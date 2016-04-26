@@ -29,22 +29,8 @@ not testing 2.7 and above
         >>> get.hostname
         >>> 'localhost.localdomain'
 
-        >>> get.cpu_percent_usage()
-        22.5
-
-        >>> get.cpu_percent_usage(percpu=True)
-        [24.3, 20.6, 23.8, 21.3]
-
         >>> get.kernel_version
         '3.16.0-4-amd64'
-
-
-        >>> get.memory_usage
-        {'virtual': {'percent': 39.3, 'total': '7.75 GB', 'used': '5.91 GB', 'free': '1.84 GB'}, 'swap': {'percent': 0.0, 'total': '4.57 GB', 'used': '0', 'free': '4.57 GB'}}
-
-
-        >>> get.disk_usage
-        {'/': {'percent': 31.0, 'total': '105.41 GB', 'used': '32.67 GB', 'free': '67.36 GB'}}
 
         >>> get.ntp_current_time
         'Thu Apr 21 10:34:43 2016'
@@ -112,6 +98,30 @@ not testing 2.7 and above
         >>> set.ip('eth0', '10.10.10.10')
 
         >>> set.netmask('eth0', '255.255.255.0'
+```
+
+## System Stats
+
+```python
+
+        >>> from psystem import stats
+        >>> get = stats.Get()
+        
+        >>> get.memory
+        {'swap': {'percent': 0.0, 'total': '2 GB', 'free': '2 GB', 'used': '0'}, 
+         'virtual': {'percent': 15.6, 'total': '993.34 MB', 'free': '631.95 MB', 'used': '361.39 MB'}}
+
+        >>> get.cpu()
+        0.1
+
+        >>> get.cpu(percpu=True)
+        [0.1]
+
+        >>> get.disk
+        {'/boot': {'percent': 26.5, 'total': '496.67 MB', 'free': '365.29 MB', 'used': '131.38 MB'}, 
+         '/': {'percent': 7.2, 'total': '17.46 GB', 'free': '16.21 GB', 'used': '1.25 GB'}}
+
+
 ```
 
 ## Sending Mail
