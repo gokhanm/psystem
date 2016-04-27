@@ -10,7 +10,7 @@ Psystem is for linux platform developers or sysadmins.
         python3 setup.py install
 ```
 
-# Support Python Version
+# Python Version
 
 ```
 >= 3.4
