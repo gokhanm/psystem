@@ -8,7 +8,7 @@ __email__ = "gokhan@mankara.org"
 
 
 class Log:
-    def __init__(self, log_file_path=None):
+    def __init__(self, log_file_path=None, syslog=False):
 
         self.log_path = log_file_path
 
@@ -27,8 +27,11 @@ class Log:
                 self.logger.setLevel(logging.INFO)
                 formatter = logging.Formatter('%(asctime)s %(levelname)-5s %(message)s', "%d %b %Y %H:%M:%S")
 
-                handler = logging.handlers.TimedRotatingFileHandler(self.log_path, encoding='UTF-8',
-                                                                    when='midnight', backupCount=5)
+                if syslog:
+                    handler = SysLogHandler(address='/dev/log')
+                else:
+                    handler = logging.handlers.TimedRotatingFileHandler(self.log_path, encoding='UTF-8',
+                                                                        when='midnight', backupCount=5)
                 handler.setFormatter(formatter)
                 self.logger.addHandler(handler)
 
