@@ -42,6 +42,9 @@ not testing 2.x yet
          >>> get.pid('crypto')
          33
 
+         >>> get.uptime
+        '1:03:58'
+
 ```
 
 ## System Set Usage
