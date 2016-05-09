@@ -18,7 +18,7 @@ get current settings and send e-mail with mail module.
 >= 3.4
 
 ```
-not testing 2.x yet
+2.7.x, Not compatible
 
 # USAGE
 
