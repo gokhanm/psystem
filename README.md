@@ -1,6 +1,8 @@
 # PSYSTEM
 
-Psystem is for linux platform developers or sysadmins.
+Psystem aims to collect system modules ( like psutil, netifaces etc. ) under the one roof 
+for linux platform developers or sysadmins. You can change system, network settings, 
+get current settings and send e-mail with mail module.
 
 # SETUP
 
