@@ -9,16 +9,12 @@ __email__ = "gokhan@mankara.org"
 
 class Log:
     def __init__(self, log_file_path=None, syslog=False):
-
         self.log_path = log_file_path
 
         if not log_file_path is None:
-
             path = os.path.dirname(self.log_path)
-
             if not os.path.exists(path):
                 os.makedirs(path)
-        
             self.logger = logging.getLogger('PSystem Logger')
 
             total_handlers = len(self.logger)
@@ -26,7 +22,6 @@ class Log:
             if total_handlers == 0:
                 self.logger.setLevel(logging.INFO)
                 formatter = logging.Formatter('%(asctime)s %(levelname)-5s %(message)s', "%d %b %Y %H:%M:%S")
-
                 if syslog:
                     handler = SysLogHandler(address='/dev/log')
                 else:
@@ -36,15 +31,11 @@ class Log:
                 self.logger.addHandler(handler)
 
     def __output(self, level, message):
-
         if sys.stdout.isatty():
             print(message)
-
         elif self.log_path is None:
             print(message)
-
         else:
-
             if "debug" == level:
                 self.logger.debug(message)
             elif "info" == level:

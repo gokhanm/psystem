@@ -76,7 +76,6 @@ class Get:
             Default Interface Gateway
             Return: tuple
         """
-
         gws = netifaces.gateways()
 
         try:
@@ -94,7 +93,6 @@ class Get:
 
     def is_up(self, interface_name):
         ''' Return True if the interface is up, False otherwise. '''
-
         interface_check = self.interfaces
 
         if not interface_name in interface_check:
@@ -118,21 +116,18 @@ class Get:
             Return: str
 
         """
-
         interface_check = self.interfaces
 
         if not interface_name in interface_check:
             raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
 
         ip_list = self.ip(interface_name)
-
         netmask = ip_list[0]['netmask']
 
         return netmask
 
 
 class Set:
-    
     def __init__(self):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -147,20 +142,15 @@ class Set:
             newip: New Ip Address
 
         """
-
         interface_check = Get().interfaces
-
         valid_ipv4 = validators.ipv4(newip)
 
         if not interface_name in interface_check:
             raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
-
         elif not valid_ipv4 is True:
             raise NotValidIPv4Address("Not Valid IPv4 Address %s" % newip)
-
         else:
             ifname = interface_name.encode(encoding='UTF-8')
-
             ipbytes = socket.inet_aton(newip)
             ifreq = struct.pack('16sH2s4s8s', ifname, AF_INET, b'\x00'*2, ipbytes, b'\x00'*8)
             fcntl.ioctl(self.sock, SIOCSIFADDR, ifreq)
@@ -172,7 +162,6 @@ class Set:
             netmask: iterator like ['255', '255', '255', '0']
             return: int
         """
-
         binary_str = ""
         
         for octet in netmask:
@@ -188,23 +177,16 @@ class Set:
             interface_name = Applied Interface
             netmask = New netmask ip address
         """
-
         interface_check = Get().interfaces
-
         valid_ipv4 = validators.ipv4(netmask)
 
         if not interface_name in interface_check:
             raise WrongInterfaceName("Wrong Interface Name %s" % interface_name)
-
         elif not valid_ipv4 is True:
             raise NotValidIPv4Address("Not Valid IPv4 Address %s" % netmask)
-
         else:
-
             prefix_len = self.get_net_size(netmask.split('.'))
-
             ifname = interface_name.encode(encoding='UTF-8')
-
             netmask = ctypes.c_uint32(~((2 ** (32 - prefix_len)) - 1)).value
             nmbytes = socket.htonl(netmask)
             ifreq = struct.pack('16sH2sI8s', ifname, AF_INET, b'\x00'*2, nmbytes, b'\x00'*8) 

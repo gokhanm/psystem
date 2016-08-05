@@ -20,14 +20,11 @@ class Get:
     @property
     def hostname(self):
         """ Return String System Hostname """
-
         return socket.gethostname()
 
     @property
     def kernel_version(self):
-
         """ Return String, System Current Kernel Version"""
-        
         return platform.release()
     
     @property
@@ -36,13 +33,10 @@ class Get:
 
             Return string
         """
-
         cpu_info =  platform.processor()
 
         if len(cpu_info) != 0:
             return cpu_info
-        # else:
-        #     pass
 
     @property
     def ntp_host(self):
@@ -58,6 +52,7 @@ class Get:
             Return: New NTP Server Host Name
         """
         self.host = new_host
+
         return self.host
 
     @property
@@ -66,7 +61,6 @@ class Get:
             Connected self.host ntp server
             Return: YYYY MM DD HH:MM:SS Time Format
         """
-
         port = 123
         buf = 1024
         address = (self.host, port)
@@ -80,7 +74,6 @@ class Get:
         msg, address = client.recvfrom(buf)
 
         t = struct.unpack("!12I", msg)[10]
-
         t -= ref_time
 
         return time.strftime('%Y %m %d %H:%M:%S', time.gmtime(t))
@@ -91,7 +84,6 @@ class Get:
             System Current Time
             Return: YYYY MM DD HH:MM:SS Time Format
         """
-
         now = datetime.datetime.now()
         c_t = datetime.datetime.strftime(now, '%Y %m %d %H:%M:%S')
 
@@ -103,11 +95,9 @@ class Get:
             System Uptime 
             Return: str 'HH:MM:SS' 
         """
-
         with open('/proc/uptime', 'r') as f:
             up_s = float(f.readline().split()[0].split('.')[0])
             up_str = str(datetime.timedelta(seconds=up_s))
-
         f.close()
 
         return up_str
@@ -117,12 +107,9 @@ class Get:
             process_name: System Process Name
             return: Process name's pid, integer
         """
-
         for proc in psutil.process_iter():
-
             try:
                 pinfo = proc.as_dict(attrs=['pid', 'name'])
-
                 p_name = pinfo['name']
                 p_pid = pinfo['pid']
 
@@ -134,7 +121,6 @@ class Get:
     
 
 class Set:
-
     def __init__(self):
         self.get = Get()
         self.hostname_file = '/etc/hostname'
@@ -146,9 +132,7 @@ class Set:
             if hostname file is empty, new_hostname writing in file.
             if hostname file is not empty, using replace function for new_hostname and old_hostname
         """
-        
         old_hostname = self.get.hostname
-
         f = open(txt_file, 'r')
         set_host = f.read()
         f.close()
@@ -166,9 +150,7 @@ class Set:
 
     def hostname(self, new_hostname):
         """ Change system hostname """
-
         self.__set_hostname(self.hostname_file, new_hostname)
-
         os.system('/bin/hostname %s' % new_hostname)
         syslog.syslog
 

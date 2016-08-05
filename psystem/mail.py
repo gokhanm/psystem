@@ -9,7 +9,6 @@ __email__ = 'gokhan@mankara.org'
 
 
 class Email:
-
     def __init__(self, server, port=25, username=None, password=None, relay=True, debug_level=False,
                  tls=False):
         """
@@ -22,7 +21,6 @@ class Email:
             tls: Put the SMTP connection in TLS (Transport Layer Security) mode.
 
         """
-
         self.server = server
         self.port = port
         self.relay = relay
@@ -41,7 +39,6 @@ class Email:
             subject: Mail Subject, str
             msg: Mail Message, str
         """
-
         msg = MIMEText(msg)
         msg['To'] = email.utils.formataddr(('Recipient', ', '.join(destination.split())))
         msg['From'] = email.utils.formataddr(('Auto Mail Sender', mail_from))
@@ -52,7 +49,6 @@ class Email:
 
         if self.tls:
             server.starttls()
-
         if self.relay:
             try:
                 server.login(self.username, self.password)
