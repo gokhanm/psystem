@@ -1,11 +1,9 @@
+# Copyright 2016 Gokhan MANKARA <gokhan@mankara.org>
+
 import smtplib
 import email.utils
 from email.mime.text import MIMEText
 from errors import EmailUnableRelay
-
-
-__author__ = 'Gokhan MANKARA'
-__email__ = 'gokhan@mankara.org'
 
 
 class Email:

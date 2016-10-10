@@ -1,7 +1,7 @@
+# Copyright 2016 Gokhan MANKARA <gokhan@mankara.org>
+
 import psutil
 
-__author__ = "Gokhan MANKARA"
-__email__ = "gokhan@mankara.org"
 
 class Get:
     def hr(self, byt):

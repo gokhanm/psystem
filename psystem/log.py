@@ -1,10 +1,9 @@
+# Copyright 2016 Gokhan MANKARA <gokhan@mankara.org>
+
 import logging
 import logging.handlers
 import os
 import sys
-
-__author__ = "Gokhan MANKARA"
-__email__ = "gokhan@mankara.org"
 
 
 class Log:

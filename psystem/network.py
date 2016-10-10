@@ -1,4 +1,6 @@
 """ Common Network Settings """
+# Copyright 2016 Gokhan MANKARA <gokhan@mankara.org>
+
 import netifaces
 import socket
 import struct
@@ -8,10 +10,6 @@ import socket
 import validators
 
 from psystem.errors import *
-
-
-__author__ = "Gokhan MANKARA"
-__email__ = "gokhan@mankara.org"
 
 
 # From linux/sockios.h

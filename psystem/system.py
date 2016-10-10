@@ -1,3 +1,5 @@
+# Copyright 2016 Gokhan MANKARA <gokhan@mankara.org>
+
 import datetime
 import socket
 import struct
@@ -7,10 +9,6 @@ import syslog
 import os
 import platform
 import psutil
-
-
-__author__ = "Gokhan MANKARA"
-__email__ = "gokhan@mankara.org"
 
 
 class Get:

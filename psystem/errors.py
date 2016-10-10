@@ -1,7 +1,5 @@
 """ Common SurSys Exceptions"""
-
-__author__ = "Gokhan MANKARA"
-__email__ = "gokhan@mankara.org"
+# Copyright 2016 Gokhan MANKARA <gokhan@mankara.org>
 
 
 class BaseException(Exception):
