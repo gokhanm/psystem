@@ -10,6 +10,8 @@ import os
 import platform
 import psutil
 
+from psystem import PY3
+
 
 class Get:
     def __init__(self):
@@ -62,7 +64,11 @@ class Get:
         port = 123
         buf = 1024
         address = (self.host, port)
-        msg = bytes('\x1b' + 47 * '\0', 'UTF-8')
+
+        if PY3:
+            msg = bytes('\x1b' + 47 * '\0', 'UTF-8')
+        else:
+            msg = str('\x1b' + 47 * '\0')
 
         # reference time
         ref_time = 2208988800 # 1970-01-01 00:00:00

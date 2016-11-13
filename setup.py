@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
     name = "psystem",
-    version = "0.1",
+    version = "0.1.1",
     author = "Gokhan Mankara",
     author_email = "gokhan@mankara.org",
     description = ("Linux System Python Module"),
