@@ -7,8 +7,6 @@ from psystem.errors import *
 __author__ = "Gokhan MANKARA"
 __email__ = "gokhan@mankara.org"
 
-warnings.simplefilter("ignore", ResourceWarning)
-
 
 class NetworkTestCase(unittest.TestCase):
     def test_get_interfaces(self):
@@ -94,4 +92,5 @@ class NetworkTestCase(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    with warnings.catch_warnings(record=True):
+        unittest.main()
