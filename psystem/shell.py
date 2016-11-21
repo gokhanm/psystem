@@ -79,7 +79,7 @@ class Ssh():
 
         self._hostname = hostname
         self._username = username
-        self._password = passwprd
+        self._password = password
         self._port = port
         self._private_key_file = private_key_file
         self._connect_timeout = connect_timeout
@@ -87,9 +87,9 @@ class Ssh():
         self._sock = sock
 
         if 'sh' == shell_type:
-            self._shell_type = spur.ShellTypes.sh
+            self._shell_type = spur.ssh.ShellTypes.sh
         elif 'minimal' == shell_type:
-            self._shell_type = spur.ShellTypes.minimal
+            self._shell_type = spur.ssh.ShellTypes.minimal
 
         if 'raise_error' == missing_host_key:
             self._missing_host_key = spur.ssh.MissingHostKey.raise_error
