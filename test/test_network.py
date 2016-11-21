@@ -20,16 +20,19 @@ class NetworkTestCase(unittest.TestCase):
         get = network.Get()
         interface_list = self.test_get_interfaces()
         
-        for i in interface_list:
-            interface_addrs = get.ip(i)
-            self.assertIsInstance(interface_addrs, list)
+        for interface in interface_list:
+            try:
+                interface_addrs = get.ip(interface)
+                self.assertIsInstance(interface_addrs, list)
+            except:
+                self.assertRaises(NotValidInterfaceName, get.ip, interface)
 
     def test_get_mac(self):
         get = network.Get()
         interface_list = self.test_get_interfaces()
 
-        for i in interface_list:
-            interface_mac = get.mac(i)
+        for interface in interface_list:
+            interface_mac = get.mac(interface)
             self.assertIsInstance(interface_mac, list)
 
     def test_get_default_gateway(self):

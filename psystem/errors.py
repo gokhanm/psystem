@@ -5,14 +5,17 @@
 class BaseException(Exception):
     pass
 
-class WrongInterfaceName(Exception):
+class WrongInterfaceName(BaseException):
     pass
 
-class NotValidIPv4Address(Exception):
+class NotValidIPv4Address(BaseException):
     pass
 
-class Ipv6GateWayError(Exception):
+class Ipv6GateWayError(BaseException):
     pass
 
-class EmailUnableRelay(Exception):
+class EmailUnableRelay(BaseException):
+    pass
+
+class NotValidInterfaceName(BaseException):
     pass

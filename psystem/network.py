@@ -50,7 +50,11 @@ class Get:
         
         addrs = netifaces.ifaddresses(interface_name)
 
-        return addrs[netifaces.AF_INET]
+        try:
+            return addrs[netifaces.AF_INET]
+        except KeyError:
+            raise NotValidInterfaceName("Not valid interface name or may be
+                                         virtual interface name %s" % interface_name)
 
     def mac(self, interface_name):
         """
