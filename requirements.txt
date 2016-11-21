@@ -2,3 +2,4 @@ netifaces>=0.10.4
 pyroute2>=0.3.16
 validators>=0.10
 psutil>=4.1.0
+spur>=0.3.20
