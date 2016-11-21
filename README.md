@@ -141,18 +141,20 @@ get current settings and send e-mail with mail module.
 
 ## Shell Local
 ```python
-    from psystem import shell
-    shell_local = shell.Local()
-    result = shell_local.run(['echo', '-n', 'hello'])
-    print(result) # prints hello
+    >>> from psystem import shell
+    >>> shell_local = shell.Local()
+    >>> result = shell_local.run(['echo', '-n', 'hello'])
+    >>> print(result)
+        'hello'
 ```
 
 ## Shell Ssh
 ```python
-    from psystem import shell
-    shell_ssh = shell.Ssh(hostname='localhost', username='sam', password='password1')
-    result = shell_ssh.run(['echo', '-n', 'hello'])
-    print(result) # prints hello
+    >>> from psystem import shell
+    >>> shell_ssh = shell.Ssh(hostname='localhost', username='sam', password='password1')
+    >>> result = shell_ssh.run(['echo', '-n', 'hello'])
+    >>> print(result)
+        'hello'
 ```
 
 ## Sending Mail
