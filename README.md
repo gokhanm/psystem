@@ -12,6 +12,17 @@ get current settings and send e-mail with mail module.
         python3 setup.py install
 ```
 
+or
+
+for Python 2.7.x
+```
+    pip install psystem
+```
+for Python 3.5.x
+```
+    pip3 install psystem
+```
+
 # Python Version
 
 ```
