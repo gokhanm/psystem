@@ -1,5 +1,7 @@
 # PSYSTEM
 
+[![PyPI](https://img.shields.io/pypi/v/psystem.svg)](https://pypi.python.org/pypi/psystem)
+
 Psystem aims to collect system modules ( like psutil, netifaces etc. ) under the one roof 
 for linux platform developers or sysadmins. You can change system, network settings, 
 get current settings and send e-mail with mail module.
